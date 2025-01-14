@@ -1,19 +1,21 @@
-const rootElement = document.getElementById("root");
+const rootElement = document.querySelector("#root");
 
-const ReactElement = {
+const reactElement = {
   type: "a",
   props: {
-    href: "http://react.org",
-    _target: "_blank",
+    href: "http://google.com",
+    target: "_blank",
   },
-  children: "Click here to Visit",
+  children: "Click here to visit googl",
 };
 
-function RenderElement(element, container) {
- const element =  document.createElement(element.type)
+const renderElement = (element, mainElement) => {
+  const domElement = document.createElement(element.type);
+  domElement.innerText = element.children;
+  domElement.setAttribute("href", element.props.href);
+  domElement.setAttribute("target", element.props.target);
 
- element.innerHTML = element.children
- element.setAttributes()
-}
+  mainElement.appendChild(domElement);
+};
 
-RenderElement(ReactElement, rootElement);
+renderElement(reactElement, rootElement);
