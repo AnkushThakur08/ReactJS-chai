@@ -1,11 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 
 function App() {
   const [count, setCount] = useState<number>(8);
-  const [password, setPassword] = useState<string>("");
   const [includeNumbers, setIncludeNumbers] = useState<boolean>(false);
   const [includeSpecialChars, setIncludeSpecialChars] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>("");
+
+  const passwordRef = useRef(null);
 
   const generatePassword = useCallback(() => {
     let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -31,7 +33,7 @@ function App() {
             className="text-white bg-blue-400 py-1.5 px-4 text-lg cursor-pointer"
             onClick={() => {
               navigator.clipboard.writeText(password);
-              alert("copied");
+              alert("Text Copied Successfully");
             }}
           >
             Copy
@@ -49,6 +51,7 @@ function App() {
               onChange={(e) => {
                 setCount(Number(e.target.value));
               }}
+              ref={passwordRef}
             />
             <label>Length({count})</label>
           </div>
