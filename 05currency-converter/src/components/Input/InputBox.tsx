@@ -1,6 +1,6 @@
 import { IInputBox } from "./type";
 
-const InputBox: React.FC<IInputBox> = ({ label, value, currencyType, setValue, countryList }) => {
+const InputBox: React.FC<IInputBox> = ({ label, value, currencyType, setValue, countryList, country }) => {
   return (
     <div className={`bg-white p-3 rounded-lg text-sm flex `}>
       <div className="w-1/2">
@@ -15,9 +15,17 @@ const InputBox: React.FC<IInputBox> = ({ label, value, currencyType, setValue, c
       </div>
       <div className="w-1/2 flex flex-wrap justify-end text-right">
         <p className="text-black/40 mb-2 w-full">Currency Type</p>
-        <select className="rounded-lg px-1 py-1 bg-gray-500 cursor-pointer outline-none" onChange={(e) => currencyType(e.target.value)}>
+        <select
+          className="rounded-lg px-1 py-1 bg-gray-500 cursor-pointer outline-none"
+          value={country}
+          onChange={(e) => currencyType(e.target.value)}
+        >
           {Object.keys(countryList).map((value, index) => {
-            return <option value={value}>{value}</option>;
+            return (
+              <option key={index} value={value}>
+                {value}
+              </option>
+            );
           })}
         </select>
       </div>
