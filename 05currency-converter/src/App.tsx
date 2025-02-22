@@ -15,7 +15,6 @@ function App() {
   const getCurrencyList = async (currency: string) => {
     try {
       const response = await axios.get(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currency}.json`);
-      console.log("ssss====>", response);
       setCountryList(response?.data[currency]);
     } catch (error) {
       console.error(error);
@@ -59,11 +58,11 @@ function App() {
               <div className="w-full mb-1">
                 <InputBox
                   label="From"
-                  countryList={countryList}
-                  currencyType={setFromCountry}
                   value={fromAmount}
                   setValue={setFromAmount}
-                  country={fromCountry}
+                  setSelectedCountry={setFromCountry}
+                  selectedCountry={fromCountry}
+                  countryList={countryList}
                 />
               </div>
               <div className="relative w-full h-0.5">
@@ -79,11 +78,11 @@ function App() {
               <div className="w-full mt-1 mb-4">
                 <InputBox
                   label="To"
-                  countryList={countryList}
-                  currencyType={setToCountry}
                   value={toAmount}
                   setValue={setToAmount}
-                  country={toCountry}
+                  selectedCountry={toCountry}
+                  setSelectedCountry={setToCountry}
+                  countryList={countryList}
                 />
               </div>
               <button
