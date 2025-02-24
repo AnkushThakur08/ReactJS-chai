@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { IUserData } from "./type";
 
 const Github = () => {
   const [userData, setUserData] = useState<IUserData>();
   const getUser = async () => {
     const res = await axios.get("https://api.github.com/users/hiteshchoudhary");
-    console.log("res", res);
     setUserData(res?.data);
   };
 
   useEffect(() => {
     getUser();
   }, []);
+
   return (
     <div className="flex gap-4 m-3">
       <div>
