@@ -1,33 +1,23 @@
 import { faker } from "@faker-js/faker";
+import { ThemeContext } from "../../context/themeContext";
+import { useContext } from "react";
+
 const Card = () => {
+  const theme = useContext(ThemeContext);
+  console.log("theme", theme);
+
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm">
-      <a href="#">
-        <img className="rounded-t-lg" src={faker.image.url()} alt="" />
-      </a>
-      <div className="p-5">
-        <a href="#">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{faker.commerce.productName()}</h5>
-        </a>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{faker.commerce.productDescription()}</p>
-        <div className="flex justify-between items-baseline">
-          <p className="mb-3 font-normal text-gray-700 dark:text-white">$ {faker.commerce.price()}</p>
-          <a
-            href="#"
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Read more
-            <svg
-              className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 10"
-            >
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-          </a>
-        </div>
+    <div
+      className={`h-[500px] w-[500px] border rounded-lg p-5 
+    ${theme.theme == "dark" ? "bg-gray-900 text-white border-gray-700" : "bg-white text-black"}`}
+    >
+      <div className="flex flex-col justify-center items-center">
+        <img className="h-80 w-[400px] object-fill" alt="image" src={faker.image.url()} />
+        <p className="text-2xl font-medium antialiased">{faker.commerce.productName()}</p>
+      </div>
+      <div className="flex justify-between items-baseline my-10">
+        <p className="text-2xl font-bold">$ {faker.commerce.price()}</p>
+        <button className="text-xl bg-blue-500 text-white px-4 py-2 rounded-lg">Add to Cart</button>
       </div>
     </div>
   );
