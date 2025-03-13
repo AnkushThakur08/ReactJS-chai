@@ -10,8 +10,9 @@ const TodoContext = createContext({
     },
   ],
   addTodo: (todo: ITodoList) => {},
-  editTodo: (id: string, value: string) => {},
+  editTodo: (id: string, todo: ITodoList) => {},
   deleteTodo: (id: string) => {},
+  completeTodo: (id: string) => {},
 });
 
 export default TodoContext;

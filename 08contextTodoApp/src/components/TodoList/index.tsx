@@ -5,8 +5,7 @@ import TodoContext from "../../context/TodoContext";
 const TodoList: React.FC<ITodoListProps> = ({ todoList }) => {
   const [isTodoEditable, setIsTodoEditable] = useState(false);
   const [todoMsg, setTodoMsg] = useState<string>(todoList.todo);
-  const { deleteTodo, editTodo } = useContext(TodoContext);
-  console.log("todo", todoList);
+  const { deleteTodo, editTodo, completeTodo } = useContext(TodoContext);
 
   const handleDelete = (id: string) => {
     deleteTodo(id);
@@ -17,10 +16,18 @@ const TodoList: React.FC<ITodoListProps> = ({ todoList }) => {
     setIsTodoEditable(!isTodoEditable);
   };
 
+  const handleComplete = () => {
+    completeTodo(todoList.id);
+  };
+
   return (
-    <div className="flex justify-between w-full bg-[#CBBBD5] py-4 px-2 rounded-xl text-black font-medium">
+    <div
+      className={`flex justify-between w-full bg-[#CBBBD5] py-4 px-2 rounded-xl text-black font-medium ${
+        todoList.isCompleted ? "bg-[#c6e9a7]" : "bg-[#ccbed7]"
+      }`}
+    >
       <div className="ml-2 flex gap-3 items-center">
-        <input type="checkbox" name="todoCheckbox" id="todo" />
+        <input type="checkbox" name="todoCheckbox" id="todo" checked={todoList.isCompleted} onChange={handleComplete} />
         <input
           type="text"
           className={`border outline-none w-full bg-transparent rounded-lg ${
@@ -47,7 +54,7 @@ const TodoList: React.FC<ITodoListProps> = ({ todoList }) => {
 
         <button
           className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 cursor-pointer"
-          onClick={(id) => handleDelete(todoList.id)}
+          onClick={() => handleDelete(todoList.id)}
         >
           ❌
         </button>

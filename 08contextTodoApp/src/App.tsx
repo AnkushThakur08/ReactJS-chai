@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import { ITodoList } from "./components/TodoList/type";
@@ -21,10 +21,24 @@ const App = () => {
     setTodos((prev) => prev.map((prevTodo) => (prevTodo.id === id ? todo : prevTodo)));
   };
 
-  console.log("todos", todos);
+  const completeTodo = (id: string) => {
+    setTodos((prev) => prev.map((prevTodo) => (prevTodo.id === id ? { ...prevTodo, isCompleted: !prevTodo.isCompleted } : prevTodo)));
+  };
+
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem("todos") as string);
+
+    if (todos && todos.length > 0) {
+      setTodos(todos);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
-    <TodoContext.Provider value={{ todos, addTodo, deleteTodo, editTodo }}>
+    <TodoContext.Provider value={{ todos, addTodo, deleteTodo, editTodo, completeTodo }}>
       <Toaster position="bottom-right" reverseOrder={false} />
       <div className="bg-[#172842] min-h-screen py-8">
         <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
