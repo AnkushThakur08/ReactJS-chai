@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { ITodoListProps } from "./type";
 import TodoContext from "../../context/TodoContext";
+import toast from "react-hot-toast";
 
 const TodoList: React.FC<ITodoListProps> = ({ todoList }) => {
   const [isTodoEditable, setIsTodoEditable] = useState(false);
@@ -42,7 +43,9 @@ const TodoList: React.FC<ITodoListProps> = ({ todoList }) => {
         <button
           className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50 cursor-pointer"
           onClick={() => {
-            if (todoList.isCompleted) return;
+            if (todoList.isCompleted) {
+              toast.error("Todo is already completed  ");
+            }
 
             if (isTodoEditable) {
               handleEdit();
